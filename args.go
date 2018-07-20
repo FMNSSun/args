@@ -13,6 +13,11 @@ type TypeSpec struct {
 	Optional bool
 }
 
+// Takes a list of arguments as key value pairs and validates them
+// according to the TypesSpec provided. Each even element of args
+// must be of type string and is used as the name (or key) of the argument.
+// If ts is nil then no type checking is performed. Returns the arguments
+// as a map. The values are the odd elements of args.
 func ArgsChecked(ts TypesSpec, args... interface{}) (NamedArgs, error) {
 	n := len(args)
 
@@ -71,6 +76,9 @@ func ArgsChecked(ts TypesSpec, args... interface{}) (NamedArgs, error) {
 	return m, nil
 }
 
+// Turns the arguments into a map where each even element of args
+// must be of type string and is the name (or key) of the argument. The values
+// are the odd elements of args.
 func Args(args... interface{}) (NamedArgs, error) {
 	return ArgsChecked(nil, args...)
 }
