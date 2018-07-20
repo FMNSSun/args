@@ -5,15 +5,21 @@ import (
 	"reflect"
 )
 
+// Wrapper type for map[string]interface{}
 type NamedArgs map[string]interface{}
+
+// Wrapper type for map[string]*TypeSpec
 type TypesSpec map[string]*TypeSpec
 
 type TypeSpec struct {
+	// The expected type.
 	Type reflect.Type
+
+	// Whether the argument is optional or not.
 	Optional bool
 }
 
-// Takes a list of arguments as key value pairs and validates them
+// ArgsChecked takes a list of arguments as key value pairs and validates them
 // according to the TypesSpec provided. Each even element of args
 // must be of type string and is used as the name (or key) of the argument.
 // If ts is nil then no type checking is performed. Returns the arguments
@@ -76,7 +82,7 @@ func ArgsChecked(ts TypesSpec, args... interface{}) (NamedArgs, error) {
 	return m, nil
 }
 
-// Turns the arguments into a map where each even element of args
+// Args turns the arguments into a map where each even element of args
 // must be of type string and is the name (or key) of the argument. The values
 // are the odd elements of args.
 func Args(args... interface{}) (NamedArgs, error) {
